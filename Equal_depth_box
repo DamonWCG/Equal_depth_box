@@ -1,0 +1,73 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jan 29 17:26:38 2019
+
+@author: wangchunguang
+"""
+
+
+
+class Equal_depth_box:
+       
+    def equal_box(list, bin_num):
+        '''
+        param:
+        list:you need bin box list
+        bin_num: you want bin num
+        '''
+        bin_num = 10
+        list.sort() #need sort can replace by others
+        list_2 = list.copy()
+        all_num = len(list_2)
+        bin_sep = all_num/bin_num
+        bin_sep = int(bin_sep)
+        bin_list = []
+        for i in range(1,bin_num):
+            bin_dict = {}
+            bin_dict = i*bin_sep
+            bin_list.append(bin_dict)
+        bin_real_list = []
+        for i in bin_list:
+            #print(i)
+            bin_real_dict = {}
+            bin_real_dict = list[i]
+            bin_real_list.append(bin_real_dict)
+        
+        return bin_real_list
+        
+    def replace_box(list_1,replace_list):
+        '''
+        param:
+        list_1:you need bin list
+        replace_list: from equal box, replace the original list
+        '''
+        import pandas as pd
+        list_max = max(list_1)
+        list_min = min(list_1)
+        replace_list.insert(0,list_min -1) #insert start
+        replace_list.append(list_max + 1) #insert end
+
+        list_2 = pd.cut(list_1, bins = replace_list,
+                        labels = range(len(replace_list) - 1)).tolist()
+        return list_2
+        
+        
+        
+
+
+if __name__ == '__main__':
+    
+     import random
+     
+     list_1 = random.sample(range(1000), 134)
+     
+     print(list_1.sort())
+     
+     print('real_list: {}'.format(list_1[0:50]))
+     
+     replace_list = bin_class.equal_box(list_1, 10)
+
+     list_2 = bin_class.replace_box(list_1, replace_list)
+     
+     print('encode_list: {}'.format(list_2[0:50]))
+   
